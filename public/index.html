@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+text {
+  font: 10px sans-serif;
+}
+
+</style>
+<body>
+  <a href="#back" onclick="return goBack();">Back</a>
+  <div id="chart-container"></div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+
+var convertToNodes = function (data, nameKey, valueKey) {
+    var nodeData = [];
+    // capture name and value
+    data.forEach(function (el, index, arr) {
+      nodeData.push({id: el.id, name: el[nameKey], value: parseFloat(el[valueKey])});
+    });
+    // sort by amount
+    nodeData.sort(function (a, b) {
+      return b.value - a.value;
+    });
+    return {children: nodeData};
+};
+
+
+var currentState = 0;
+var ids = [];
+var states = ['renderIndustries', 'renderEntities', 'renderIssues'];
+
+var goBack = function () {
+  var previousState = currentState - 1;
+  if (previousState < 0) { previousState = 0; }
+  
+  var previousId = ids.pop();
+  if (ids.length > 0) { previousId = ids[ids.length - 1]; }
+
+  views[states[previousState]](previousId);
+};
+
+var views = {
+  renderIndustries: function () {
+    return render("/api/v1/industries", "name", "amount", function (d) {
+      views.renderEntities(d.id);
+    });
+  },
+  renderEntities: function (industryId) {
+    if (!industryId) { console.log('invalid id'); return; };
+    ids.push(industryId);
+    return render("/api/v1/industries/" + industryId, "name", "total_amount", function (d) {
+      views.renderIssues(d.id);
+    });
+  },
+  renderIssues: function (entityId) {
+    if (!entityId) { console.log('invalid id'); return; };
+    ids.push(entityId);
+    currentState = 2;
+    return render("/api/v1/entities/" + entityId + "/issues", "issue", "count");
+  }
+};
+
+
+
+var diameter = $(document).height(),
+    format = d3.format(",d"),
+    color = d3.scale.category20c();
+
+var bubble = d3.layout.pack()
+    .sort(null)
+    .size([diameter, diameter])
+    .padding(1.5);
+
+var svg = d3.select("#chart-container").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+    .attr("class", "bubble");
+
+
+
+var render = function (jsonPath, nameKey, valueKey, onClick) {
+
+    d3.json(jsonPath, function(error, root) {
+      // check for error
+      if (error) { console.log(error); return; }
+
+      // clear current svg
+      svg.html('');
+
+      var bubbleNodes = bubble.nodes(convertToNodes(root, nameKey, valueKey));
+      var filteredNodes = bubbleNodes.filter(function(d) { return !d.children; });
+
+      // create new
+      var node = svg.selectAll(".node")
+          .data(filteredNodes)
+        .enter().append("g")
+          .attr("class", "node")
+          .attr("transform", function(d) {
+            return "translate(" + d.x + "," + d.y + ")";
+          });
+
+      node.append("title")
+          .text(function(d) {
+            return d.name + ": " + format(d.value);
+          });
+
+      node.append("circle")
+          .attr("r", function(d) { return d.r; })
+          .style("fill", function(d) {
+            return color(d.name);
+          })
+          .on('click', onClick);
+
+      node.append("text")
+          .attr("dy", ".3em")
+          .style("text-anchor", "middle")
+          .text(function(d) { return d.name.substring(0, d.r / 3); });
+    });
+
+};
+
+d3.select(self.frameElement).style("height", diameter + "px");
+
+// render industries first ...
+views.renderIndustries();
+
+
+
+</script>

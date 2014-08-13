@@ -1,0 +1,72 @@
+[
+    {
+        "count": "2837350",
+        "amount": "739834521.41",
+        "id": "cdb3f500a3f74179bb4a5eb8b2932fa6",
+        "should_show_entity": true,
+        "name": "UNKNOWN"
+    },
+    {
+        "count": "451580",
+        "amount": "411166969.67",
+        "id": "f50cf984a2e3477c8167d32e2b14e052",
+        "should_show_entity": true,
+        "name": "LAWYERS/LAW FIRMS"
+    },
+    {
+        "count": "100953",
+        "amount": "362032449.57",
+        "id": "0af3f418f426497e8bbf916bfc074ebc",
+        "should_show_entity": true,
+        "name": "SECURITIES & INVESTMENT"
+    },
+    {
+        "count": "63352",
+        "amount": "320315268.15",
+        "id": "52e5d4c6c0fa47c3bdb199a28f96d434",
+        "should_show_entity": true,
+        "name": "PUBLIC SECTOR UNIONS"
+    },
+    {
+        "count": "158416",
+        "amount": "255516502.16",
+        "id": "7500030dffe24844aa467a75f7aedfd1",
+        "should_show_entity": true,
+        "name": "REAL ESTATE"
+    },
+    {
+        "count": "268848",
+        "amount": "251665833.13",
+        "id": "a05a0d06f6814b31bece35a81fcb40c7",
+        "should_show_entity": true,
+        "name": "HEALTH PROFESSIONALS"
+    },
+    {
+        "count": "16882",
+        "amount": "158345988.78",
+        "id": "13718be68388456d9b6e8db753f06e72",
+        "should_show_entity": true,
+        "name": "CASINOS/GAMBLING"
+    },
+    {
+        "count": "115888",
+        "amount": "147513421.02",
+        "id": "8ada0fc2d6994f2ab06c7e025dff2284",
+        "should_show_entity": true,
+        "name": "INSURANCE"
+    },
+    {
+        "count": "74250",
+        "amount": "136773657.48",
+        "id": "767c434bfd1348638bab7f8c12b9282f",
+        "should_show_entity": true,
+        "name": "REPUBLICAN/CONSERVATIVE"
+    },
+    {
+        "count": "174947",
+        "amount": "121230543.69",
+        "id": "31657d3c187e4cecb670d228d7e674d2",
+        "should_show_entity": true,
+        "name": "EDUCATION"
+    }
+]
