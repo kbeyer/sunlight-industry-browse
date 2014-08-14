@@ -15,5 +15,5 @@ Then, use npm to start the node server.
 
 >npm start
 
-The default port is 300, so browse to http://localhost:300 to use the app.
+The default port is 3000, so browse to http://localhost:3000 to use the app.
 
