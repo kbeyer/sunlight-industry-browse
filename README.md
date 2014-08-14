@@ -1,9 +1,9 @@
-sunlight-industry-browse
+Sunlight Industry Browse
 ========================
 
-Experimental project to use Sunlight Foundation's Influence Explorer API to browse Industry contributions and issue association.
+Experimental project to use Sunlight Foundation's [Influence Explorer API](http://tryit.sunlightfoundation.com/influenceexplorer) to browse Industry contributions and issue association.
 
-It is currently a simple Express app that exposes some simple urls as proxies to the relevant Sunlight endpoints.
+Express is used to expose some simple urls as proxies to the relevant Sunlight endpoints.  D3.js then loads JSON data directly from the API for charting.
 
 Running
 =======
